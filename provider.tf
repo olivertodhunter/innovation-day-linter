@@ -18,6 +18,7 @@ terraform {
 }
 
 
+
 provider "google" {
   project =  "fake-project"
 }
