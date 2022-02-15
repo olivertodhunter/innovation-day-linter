@@ -12,6 +12,10 @@ jobs:
       # MegaLinter
       - name: MegaLinter
         uses: megalinter/megalinter@v5
+        env:
+          APPLY_FIXES: all
+          APPLY_FIXES_EVENT: none
+
       # Upload MegaLinter artifacts
       - name: Archive production artifacts
         if: ${{ success() }} || ${{ failure() }}
