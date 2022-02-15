@@ -29,3 +29,7 @@ jobs:
           git add -A
           git diff-index --quiet HEAD || git commit -m 'Formatting'
           git push
+      - name: Golang Formatter
+        uses: sladyn98/auto-go-format@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.OLIVERTODHUNTER_ACCESS_TOKEN }}
