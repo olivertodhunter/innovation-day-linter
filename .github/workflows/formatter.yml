@@ -9,23 +9,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.head_ref }}
-      # - name: Groovy format
-
-      - name: Go Formatter
-        uses: sladyn98/auto-go-format@v0.0.1
-      - name: Python quality and format checker
-        uses: konstruktoid/action-pylint@v0.0.6
-      - name: Reformat YAML Files
-        uses: credfeto/action-yaml-format@v1.3.0
-
-      # - name: Prettify code
-      #   uses: creyD/prettier_action@v4.2
-      #   with:
-      #     # This part is also where you can pass other options, for example:
-      #     prettier_options: --write **/*
-      - name: Check for modified files
-        id: git-check
-        run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
       # MegaLinter
       - name: MegaLinter
         uses: megalinter/megalinter@v5
@@ -38,6 +21,9 @@ jobs:
           path: |
             report
             mega-linter.log
+      - name: Check for modified files
+        id: git-check
+        run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
       - name: Commit report
         run: |
           git config --global user.name 'Terraform format'
