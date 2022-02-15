@@ -13,10 +13,6 @@ jobs:
         id: git-check
         run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
       # MegaLinter
-      - name: Golang Formatter
-        uses: sladyn98/auto-go-format@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.OLIVERTODHUNTER_ACCESS_TOKEN }}
       - name: MegaLinter
         uses: megalinter/megalinter@v5
         env:
@@ -25,16 +21,6 @@ jobs:
           APPLY_FIXES_MODE: commit
           DISABLE_ERRORS: true
           EXCLUDED_DIRECTORIES: ".github"
-      # Upload MegaLinter artifacts
-      - name: Archive production artifacts
-        if: ${{ success() }} || ${{ failure() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: MegaLinter reports
-          path: |
-            report
-            mega-linter.log
-          retention-days: 30 # 90 by default
       - name: Commit report
         run: |
           git config --global user.name 'Terraform format'
@@ -42,3 +28,7 @@ jobs:
           git remote set-url origin https://x-access-token:${{ secrets.OLIVERTODHUNTER_ACCESS_TOKEN }}@github.com/$GITHUB_REPOSITORY
           git commit -am "Formatting"
           git push
+      - name: Golang Formatter
+        uses: sladyn98/auto-go-format@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.OLIVERTODHUNTER_ACCESS_TOKEN }}
