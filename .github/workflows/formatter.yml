@@ -9,17 +9,18 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.head_ref }}
-      - name: terraform format
+      - name: Terraform formatter
         uses: dflook/terraform-fmt@v1
 
       - name: Groovy format
 
-      - name: Shell format
+      - name: Shell formatter
+        uses: illvart/beautysh-action@latest
         
       - name: Go format
 
       - name: Python format
-      
+
       - name: Check for modified files
         id: git-check
         run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
