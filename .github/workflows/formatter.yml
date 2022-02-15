@@ -18,6 +18,7 @@ jobs:
         env:
           APPLY_FIXES: all
           APPLY_FIXES_EVENT: none
+          DISABLE_LINTERS: all
 
       # Upload MegaLinter artifacts
       - name: Archive production artifacts
