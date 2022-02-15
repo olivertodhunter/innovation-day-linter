@@ -21,15 +21,6 @@ jobs:
           APPLY_FIXES_MODE: commit
           DISABLE_ERRORS: true
           EXCLUDED_DIRECTORIES: ".github"
-      # Upload MegaLinter artifacts
-      - name: Archive production artifacts
-        if: ${{ success() }} || ${{ failure() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: MegaLinter reports
-          path: |
-            report
-            mega-linter.log
       - name: Commit report
         run: |
           git config --global user.name 'Terraform format'
