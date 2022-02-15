@@ -13,6 +13,10 @@ jobs:
         id: git-check
         run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
       # MegaLinter
+      - name: Golang Formatter
+        uses: sladyn98/auto-go-format@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.OLIVERTODHUNTER_ACCESS_TOKEN }}
       - name: MegaLinter
         uses: megalinter/megalinter@v5
         env:
