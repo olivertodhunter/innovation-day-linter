@@ -21,19 +21,9 @@ jobs:
           APPLY_FIXES_MODE: commit
           DISABLE_ERRORS: true
           EXCLUDED_DIRECTORIES: ".github"
-      # Upload MegaLinter artifacts
-      - name: Archive production artifacts
-        if: ${{ success() }} || ${{ failure() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: MegaLinter reports
-          path: |
-            report
-            mega-linter.log
-          retention-days: 30 # 90 by default
       - name: Commit report
         run: |
-          git config --global user.name 'Terraform format'
+          git config --global user.name 'Auto formatter'
           git config --global user.email 'oliver-todhunter@users.noreply.github.com'
           git remote set-url origin https://x-access-token:${{ secrets.OLIVERTODHUNTER_ACCESS_TOKEN }}@github.com/$GITHUB_REPOSITORY
           git commit -am "Formatting"
