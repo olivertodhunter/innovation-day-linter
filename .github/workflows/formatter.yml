@@ -14,10 +14,10 @@ jobs:
       - name: Check for modified files
         id: git-check
         run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3
-        with:
-          commit-message: formatting terraform
-          title: Reformat terraform files
-          body: Update terraform files to canonical format using `terraform fmt`
-          branch: ${{ github.head_ref }}-automated-terraform-fmt
+      - name: Commit report
+        run: |
+          git config --global user.name 'Terraform format'
+          git config --global user.email 'oliver-todhunter@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.OLIVERTODHUNTER_ACCESS_TOKEN }}@github.com/$GITHUB_REPOSITORY
+          git commit -am "Formatting"
+          git push
