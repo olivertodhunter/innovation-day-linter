@@ -1,4 +1,4 @@
-name: auto-format-terraform
+name: Formatter
 on: pull_request
 jobs:
   format:
@@ -17,7 +17,8 @@ jobs:
         uses: megalinter/megalinter@v5
         env:
           APPLY_FIXES: all
-          APPLY_FIXES_EVENT: none
+          APPLY_FIXES_EVENT: push
+          APPLY_FIXES_MODE: commit
 
       # Upload MegaLinter artifacts
       - name: Archive production artifacts
