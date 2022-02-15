@@ -1,4 +1,4 @@
-name: auto-format-terraform
+name: Formatter
 on: pull_request
 jobs:
   format:
@@ -17,9 +17,10 @@ jobs:
         uses: megalinter/megalinter@v5
         env:
           APPLY_FIXES: all
-          APPLY_FIXES_EVENT: none
-          DISABLE_LINTERS: all
-
+          APPLY_FIXES_EVENT: push
+          APPLY_FIXES_MODE: commit
+          DISABLE_ERRORS: true
+          EXCLUDED_DIRECTORIES: ".github"
       # Upload MegaLinter artifacts
       - name: Archive production artifacts
         if: ${{ success() }} || ${{ failure() }}
@@ -29,6 +30,7 @@ jobs:
           path: |
             report
             mega-linter.log
+          retention-days: 30 # 90 by default
       - name: Commit report
         run: |
           git config --global user.name 'Terraform format'
