@@ -9,6 +9,9 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.head_ref }}
+      - name: Check for modified files
+        id: git-check
+        run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
       # MegaLinter
       - name: MegaLinter
         uses: megalinter/megalinter@v5
@@ -25,9 +28,6 @@ jobs:
           path: |
             report
             mega-linter.log
-      - name: Check for modified files
-        id: git-check
-        run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
       - name: Commit report
         run: |
           git config --global user.name 'Terraform format'
