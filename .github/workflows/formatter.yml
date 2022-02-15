@@ -29,6 +29,7 @@ jobs:
           path: |
             report
             mega-linter.log
+          retention-days: 30 # 90 by default
       - name: Commit report
         run: |
           git config --global user.name 'Terraform format'
