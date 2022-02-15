@@ -1,13 +1,14 @@
 // package  main
 
-// import "fmt" 
+// import "fmt"
 
-// func main (){ 
+// func main (){
 // 	 fmt.Println("hello world" ) }
 
-package  main
+package main
 
-import "fmt" 
+import "fmt"
 
-func main (){ 
-	 fmt.Println("hello world" ) }
+func main() {
+	fmt.Println("hello world")
+}
